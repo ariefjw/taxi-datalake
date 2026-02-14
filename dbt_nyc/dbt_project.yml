@@ -1,0 +1,28 @@
+name: 'dbt_nyc'
+version: '1.0.0'
+config-version: 2
+
+# Ini harus sama dengan nama yang ada di dalam profiles.yml kamu
+profile: 'dbt_nyc'
+
+# Menentukan lokasi folder di dalam project
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+
+# Menentukan folder hasil kompilasi
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Konfigurasi level model (opsional)
+models:
+  dbt_nyc:
+    # Semua model di folder 'models' akan dibuat sebagai table secara default
+    +materialized: table
+    staging:
+      +schema: staging
+    marts:
+      +schema: marts
