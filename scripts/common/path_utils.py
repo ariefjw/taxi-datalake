@@ -8,9 +8,11 @@ class PathConfig:
     DATA_ROOT = os.path.join(AIRFLOW_HOME, "data")
     
     # Landing Zones
-    # Landing Zones
     LANDING_TAXI = os.path.join(DATA_ROOT, "taxi", "trips")
     LANDING_WEATHER = os.path.join(DATA_ROOT, "weather", "city")
+    
+    # Logs Directory
+    LOGS_DIR = os.path.join(DATA_ROOT, "logs")
     
     # Script Paths (for Airflow DAG references)
     SCRIPT_ROOT = os.path.join(AIRFLOW_HOME, "scripts")

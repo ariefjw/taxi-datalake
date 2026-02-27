@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: stg_nyc_tripdata
+    description: "Cleaned yellow taxi trip data, filtered for valid trips."
+    columns:
+      - name: vendor_id
+        description: "A code indicating the TPEP provider that provided the record."
+        tests:
+          - not_null
+      - name: pickup_datetime
+        description: "The date and time when the meter was engaged."
+        tests:
+          - not_null
+      - name: dropoff_datetime
+        description: "The date and time when the meter was disengaged."
+        tests:
+          - not_null
+      - name: passenger_count
+        description: "The number of passengers in the vehicle. This is an engine-entered value."
+        tests:
+          - not_null
+      - name: trip_distance
+        description: "The elapsed trip distance in miles reported by the taximeter."
+        tests:
+          - not_null
+      - name: fare_amount
+        description: "The time-and-distance fare calculated by the meter."
+        tests:
+          - not_null
+      - name: pickup_location_id
+        description: "TLC Taxi Zone in which the taximeter was engaged"
+        tests:
+          - not_null
+
+  - name: stg_weather
+    description: "Hourly weather data for NYC."
+    columns:
+      - name: timestamp
+        description: "The UTC timestamp of the weather reading."
+        tests:
+          - not_null
+          - unique
+      - name: date
+        description: "The date portion of the timestamp"
+        tests:
+          - not_null
+      - name: hour
+        description: "The hour portion of the timestamp"
+        tests:
+          - not_null
+      - name: temp_celsius
+        description: "Temperature in Celsius"
+      - name: precipitation_mm
+        description: "Precipitation in millimeters"
+      - name: snowfall_cm
+        description: "Snowfall in centimeters"

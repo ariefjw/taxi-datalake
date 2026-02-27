@@ -8,38 +8,9 @@ from typing import Optional
 from scripts.common.path_utils import PathConfig
 SOURCE_URL_TEMPLATE = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{}-{}.parquet"
 
-# Logging Setup
-class CustomFormatter(logging.Formatter):
-    """Custom log formatter to match Spark script style."""
-    grey = "\x1b[38;20m"
-    yellow = "\x1b[33;20m"
-    red = "\x1b[31;20m"
-    green = "\x1b[32;20m"
-    reset = "\x1b[0m"
-    format_str = "[%(levelname)s] [%(asctime)s] %(message)s"
+from scripts.common.custom_logger import setup_logger
 
-    def format(self, record):
-        log_fmt = self.format_str
-        if record.levelno == logging.INFO:
-            log_fmt = self.green + self.format_str + self.reset
-        elif record.levelno == logging.WARNING:
-            log_fmt = self.yellow + self.format_str + self.reset
-        elif record.levelno == logging.ERROR:
-            log_fmt = self.red + self.format_str + self.reset
-        formatter = logging.Formatter(log_fmt, datefmt="%Y-%m-%d %H:%M:%S")
-        return formatter.format(record)
-
-def setup_logger(name="TripIngestion"):
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
-    if not logger.handlers:
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
-        ch.setFormatter(CustomFormatter())
-        logger.addHandler(ch)
-    return logger
-
-logger = setup_logger()
+logger = setup_logger("TripIngestion", "trip_extract")
 
 def download_data_for_date(execution_date: str) -> str:
     """

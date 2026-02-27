@@ -6,37 +6,10 @@ import os
 import sys
 from sqlalchemy import create_engine, text
 
-# Setup Logger
-class CustomFormatter(logging.Formatter):
-    grey = "\x1b[38;20m"
-    yellow = "\x1b[33;20m"
-    red = "\x1b[31;20m"
-    green = "\x1b[32;20m"
-    reset = "\x1b[0m"
-    format_str = "[%(levelname)s] [%(asctime)s] %(message)s"
+from scripts.common.custom_logger import setup_logger
 
-    def format(self, record):
-        log_fmt = self.format_str
-        if record.levelno == logging.INFO:
-            log_fmt = self.green + self.format_str + self.reset
-        elif record.levelno == logging.WARNING:
-            log_fmt = self.yellow + self.format_str + self.reset
-        elif record.levelno == logging.ERROR:
-            log_fmt = self.red + self.format_str + self.reset
-        formatter = logging.Formatter(log_fmt, datefmt="%Y-%m-%d %H:%M:%S")
-        return formatter.format(record)
+logger = setup_logger("WeatherIngest", "weather_extract_load")
 
-def setup_logger(name="WeatherIngest"):
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
-    if not logger.handlers:
-        ch = logging.StreamHandler(sys.stdout)
-        ch.setLevel(logging.INFO)
-        ch.setFormatter(CustomFormatter())
-        logger.addHandler(ch)
-    return logger
-
-logger = setup_logger()
 
 # Configuration
 from scripts.common.path_utils import PathConfig

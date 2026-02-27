@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: fct_taxi_trips_daily
+    description: "Daily aggregated facts for taxi trips."
+    columns:
+      - name: trip_date
+        description: "The date of the aggregated trips."
+        tests:
+          - not_null
+          - unique
+      - name: total_trips
+        description: "Total number of trips on this date."
+        tests:
+          - not_null
+      - name: daily_revenue
+        description: "Total revenue generated on this date."
+        tests:
+          - not_null
+
+  - name: fct_weather_impact
+    description: "Hourly aggregation of trips joined with weather conditions."
+    columns:
+      - name: timestamp
+        description: "The hour timestamp."
+        tests:
+          - not_null
+          - unique
+      - name: total_trips
+        description: "Total number of trips in this hour."
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Total revenue generated in this hour."
+        tests:
+          - not_null
+      - name: weather_condition
+        description: "Categorical weather condition based on precipitation and snowfall."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Clear', 'Rainy', 'Snowy']
