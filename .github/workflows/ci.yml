@@ -53,6 +53,10 @@ jobs:
         run: pip install dbt-postgres
         
       - name: Run dbt Compile
+        env:
+          POSTGRES_USER: dummy_user
+          POSTGRES_PASSWORD: dummy_password
+          POSTGRES_DB: dummy_db
         run: |
           cd dbt_nyc
           # This purely checks if the SQL syntax is valid dbt jinja, without needing a live database connection
