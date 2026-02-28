@@ -61,4 +61,4 @@ jobs:
           cd dbt_nyc
           # This purely checks if the SQL syntax is valid dbt jinja, without needing a live database connection
           dbt deps
-          dbt compile --target dev
+          dbt parse
